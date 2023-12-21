@@ -4,21 +4,12 @@ FROM php:8.1-apache
 # Set environment variables
 ENV APACHE_DOCUMENT_ROOT /app/public
 ENV APACHE_SERVER_NAME localhost
-ENV APP_URL $APP_URL
-ENV DB_CONNECTION $DB_CONNECTION
-ENV DB_HOST $DB_HOST
-ENV DB_PORT $DB_PORT
-ENV DB_DATABASE $DB_DATABASE
-ENV DB_USERNAME $DB_USERNAME
-ENV DB_PASSWORD $DB_PASSWORD
-ENV TEST_DATABASE_URL $TEST_DATABASE_URL
-ENV MAIL_DRIVER $MAIL_DRIVER
-ENV MAIL_HOST $MAIL_HOST
-ENV MAIL_PORT $MAIL_PORT
+# ... (other environment variables)
 
 # Set working directory
 WORKDIR /app
 
+# Copy the composer.json file
 COPY . /app
 
 # Install additional dependencies and configure Apache
@@ -51,3 +42,11 @@ COPY ./dev/docker/entrypoint.app.sh /app/dev/docker/entrypoint.app.sh
 
 # Set entrypoint
 ENTRYPOINT ["/app/dev/docker/entrypoint.app.sh"]
+
+# Run Composer install and update permissions
+RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-interaction --optimize-autoloader --no-scripts \
+    && chown -R www-data:www-data /app
+
+# Run database migrations and seed (if applicable)
+RUN php artisan migrate --force \
+    && php artisan db:seed --force
