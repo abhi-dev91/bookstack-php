@@ -4,7 +4,6 @@ FROM php:8.1-apache
 # Set environment variables
 ENV APACHE_DOCUMENT_ROOT /app/public
 ENV APACHE_SERVER_NAME localhost
-# ... (other environment variables)
 
 # Set working directory
 WORKDIR /app
@@ -43,10 +42,3 @@ COPY ./dev/docker/entrypoint.app.sh /app/dev/docker/entrypoint.app.sh
 # Set entrypoint
 ENTRYPOINT ["/app/dev/docker/entrypoint.app.sh"]
 
-# Run Composer install and update permissions
-RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-interaction --optimize-autoloader --no-scripts \
-    && chown -R www-data:www-data /app
-
-# Run database migrations and seed (if applicable)
-RUN php artisan migrate --force \
-    && php artisan db:seed --force
