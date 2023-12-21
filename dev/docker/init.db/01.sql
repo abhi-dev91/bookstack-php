@@ -1,5 +1,5 @@
 # create test database
-CREATE DATABASE IF NOT EXISTS `bookstack-test`;
+CREATE DATABASE IF NOT EXISTS `bookstacktest`;
 
 # grant rights
-GRANT ALL PRIVILEGES ON `bookstack-test`.* TO 'bookstack-test'@'%';
+GRANT ALL PRIVILEGES ON `bookstacktest`.* TO 'bookstacktest'@'%';
