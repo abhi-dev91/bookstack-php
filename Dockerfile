@@ -4,6 +4,8 @@ FROM php:8.1-apache
 # Set environment variables
 ENV APACHE_DOCUMENT_ROOT /app/public
 ENV APACHE_SERVER_NAME localhost
+ENV COMPOSER_ALLOW_SUPERUSER 1
+
 
 # Set working directory
 WORKDIR /app
