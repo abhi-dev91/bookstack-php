@@ -9,7 +9,7 @@ if [[ -n "$1" ]]; then
 else
     composer install
     docker-php-ext-install pdo pdo_mysql
-    wait-for-it mysql-service.repo.svc:3306 -t 45
+    wait-for-it $DB_HOST:3306 -t 100
     yes | php artisan migrate
     chown -R www-data:www-data storage
     exec apache2-foreground
