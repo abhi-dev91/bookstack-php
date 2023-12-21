@@ -19,6 +19,8 @@ ENV MAIL_PORT $MAIL_PORT
 # Set working directory
 WORKDIR /app
 
+COPY . /app
+
 # Install additional dependencies and configure Apache
 RUN apt-get update -y \
     && apt-get install -y git zip unzip libpng-dev libldap2-dev libzip-dev wait-for-it \
