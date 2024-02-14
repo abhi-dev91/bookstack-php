@@ -1,3 +1,5 @@
+#Testing auto trigger
+
 # BookStack
 
 [![GitHub release](https://img.shields.io/github/release/BookStackApp/BookStack.svg)](https://github.com/BookStackApp/BookStack/releases/latest)
